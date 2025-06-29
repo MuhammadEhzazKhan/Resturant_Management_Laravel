@@ -3,8 +3,20 @@
 # Create database directory
 mkdir -p storage/database
 
-# Create SQLite database file
-touch storage/database/database.sqlite
+# Remove existing database file if it exists
+rm -f storage/database/database.sqlite
+
+# Create SQLite database file using PHP
+php -r "
+try {
+    \$pdo = new PDO('sqlite:/app/storage/database/database.sqlite');
+    \$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo 'SQLite database created successfully\n';
+} catch (Exception \$e) {
+    echo 'Error creating database: ' . \$e->getMessage() . '\n';
+    exit(1);
+}
+"
 
 # Set proper permissions
 chmod 664 storage/database/database.sqlite
