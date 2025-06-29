@@ -1,15 +1,15 @@
 <?php
 
 // Initialize SQLite database
-$databasePath = __DIR__ . '/storage/database/database.sqlite';
+$databasePath = '/app/storage/database/database.sqlite';
 
 // Create all necessary directories
 $directories = [
-    __DIR__ . '/storage/database',
-    __DIR__ . '/storage/framework/sessions',
-    __DIR__ . '/storage/framework/cache',
-    __DIR__ . '/storage/framework/views',
-    __DIR__ . '/storage/logs'
+    '/app/storage/database',
+    '/app/storage/framework/sessions',
+    '/app/storage/framework/cache',
+    '/app/storage/framework/views',
+    '/app/storage/logs'
 ];
 
 foreach ($directories as $directory) {
@@ -45,6 +45,11 @@ try {
     
     echo "SQLite database initialized successfully at: $databasePath\n";
     echo "Database file size: " . filesize($databasePath) . " bytes\n";
+    
+    // Set proper permissions
+    chmod($databasePath, 0664);
+    chmod(dirname($databasePath), 0755);
+    echo "Database permissions set correctly\n";
     
 } catch (Exception $e) {
     echo "Error initializing database: " . $e->getMessage() . "\n";

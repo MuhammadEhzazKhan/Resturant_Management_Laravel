@@ -24,7 +24,7 @@ LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=debug
 
 DB_CONNECTION=sqlite
-DB_DATABASE=storage/database/database.sqlite
+DB_DATABASE=/app/storage/database/database.sqlite
 
 SESSION_DRIVER=file
 SESSION_LIFETIME=120
@@ -64,7 +64,7 @@ AWS_USE_PATH_STYLE_ENDPOINT=false
 VITE_APP_NAME="${APP_NAME}"
 
 # SQLite Configuration for Railway:
-# - Database file is stored in storage/database/database.sqlite
+# - Database file is stored in /app/storage/database/database.sqlite
 # - Sessions and cache use file storage to avoid database dependency
 # - Automatic migrations will create tables
 # - No need for separate database service

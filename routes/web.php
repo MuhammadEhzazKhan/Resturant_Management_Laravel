@@ -56,6 +56,43 @@ Route::get('/test-db', function () {
     }
 });
 
+// Database check route
+Route::get('/check-db', function () {
+    try {
+        $databasePath = '/app/storage/database/database.sqlite';
+        
+        if (!file_exists($databasePath)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Database file does not exist',
+                'path' => $databasePath,
+                'timestamp' => now()
+            ], 500);
+        }
+        
+        $pdo = new PDO("sqlite:$databasePath");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $result = $pdo->query('SELECT 1')->fetch();
+        $foodCount = $pdo->query('SELECT COUNT(*) FROM food')->fetchColumn();
+        
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Database check successful',
+            'database_path' => $databasePath,
+            'file_size' => filesize($databasePath),
+            'food_count' => $foodCount,
+            'timestamp' => now()
+        ]);
+    } catch (Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'timestamp' => now()
+        ], 500);
+    }
+});
+
 Route::get('/review', [ReviewController::class, 'showReviewForm'])->name('review.form');
 Route::post('/review', [ReviewController::class, 'submitReview'])->name('submit.review');
 
