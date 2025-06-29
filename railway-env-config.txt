@@ -64,9 +64,9 @@ AWS_USE_PATH_STYLE_ENDPOINT=false
 VITE_APP_NAME="${APP_NAME}"
 
 # SQLite Configuration for Railway:
-# - No need for separate database service
 # - Database file is stored in /app/storage/database/database.sqlite
 # - Automatic migrations will create tables
+# - No need for separate database service
 
 # Railway-specific environment variables that will be automatically set:
 # - APP_URL: Your Railway app URL
