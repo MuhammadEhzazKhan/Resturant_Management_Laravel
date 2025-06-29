@@ -10,19 +10,23 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-{
-    Schema::table('books', function (Blueprint $table) {
-        $table->time('time')->change();
-    });
-}
+    {
+        if (Schema::hasTable('books') && Schema::hasColumn('books', 'time')) {
+            Schema::table('books', function (Blueprint $table) {
+                $table->time('time')->change();
+            });
+        }
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::table('books', function (Blueprint $table) {
-            //
-        });
+        if (Schema::hasTable('books') && Schema::hasColumn('books', 'time')) {
+            Schema::table('books', function (Blueprint $table) {
+                $table->string('time')->change();
+            });
+        }
     }
 };
