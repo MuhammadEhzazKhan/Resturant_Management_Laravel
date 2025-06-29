@@ -1,5 +1,5 @@
 [phases.build] 
-cmds = ["composer install --no-dev", "mkdir -p storage/database storage/framework/sessions storage/framework/cache", "php init-database.php", "php artisan config:cache", "php artisan route:cache", "php artisan view:cache", "DB_DATABASE=/app/storage/database/database.sqlite php artisan migrate --force"] 
+cmds = ["composer install --no-dev", "mkdir -p storage/database storage/framework/sessions storage/framework/cache", "php init-database.php", "chmod 664 storage/database/database.sqlite", "php artisan config:cache", "php artisan route:cache", "php artisan view:cache", "DB_DATABASE=storage/database/database.sqlite php artisan migrate --force"] 
 
 [start]
 cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
