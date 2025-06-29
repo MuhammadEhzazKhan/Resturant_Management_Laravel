@@ -3,10 +3,20 @@
 // Initialize SQLite database
 $databasePath = '/app/storage/database/database.sqlite';
 
-// Create directory if it doesn't exist
-$directory = dirname($databasePath);
-if (!is_dir($directory)) {
-    mkdir($directory, 0755, true);
+// Create all necessary directories
+$directories = [
+    '/app/storage/database',
+    '/app/storage/framework/sessions',
+    '/app/storage/framework/cache',
+    '/app/storage/framework/views',
+    '/app/storage/logs'
+];
+
+foreach ($directories as $directory) {
+    if (!is_dir($directory)) {
+        mkdir($directory, 0755, true);
+        echo "Created directory: $directory\n";
+    }
 }
 
 try {

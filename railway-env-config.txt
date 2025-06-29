@@ -3,9 +3,9 @@
 
 APP_NAME="Restaurant Management System"
 APP_ENV=production
-APP_KEY=base64:z+ZDpWSQjMrtwegSzpJutJXn6tPnspajTTrAlAOW4/E=
+APP_KEY=base64:AYu6Ueb6zSp9cqybXU2pDAqqiuCXeyWrw1zFwkK9cP0=
 APP_DEBUG=false
-APP_URL=${APP_URL}
+APP_URL=https://resturantmanagementlaravel-production.up.railway.app
 
 APP_LOCALE=en
 APP_FALLBACK_LOCALE=en
@@ -65,6 +65,7 @@ VITE_APP_NAME="${APP_NAME}"
 
 # SQLite Configuration for Railway:
 # - Database file is stored in /app/storage/database/database.sqlite
+# - Sessions and cache use file storage to avoid database dependency
 # - Automatic migrations will create tables
 # - No need for separate database service
 
