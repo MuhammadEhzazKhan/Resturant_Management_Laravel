@@ -8,6 +8,15 @@ use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\ReviewController;
 
+// Test route for debugging
+Route::get('/test', function () {
+    return response()->json([
+        'status' => 'ok',
+        'message' => 'Laravel is working',
+        'timestamp' => now()
+    ]);
+});
+
 Route::get('/review', [ReviewController::class, 'showReviewForm'])->name('review.form');
 Route::post('/review', [ReviewController::class, 'submitReview'])->name('submit.review');
 
