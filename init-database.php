@@ -30,12 +30,18 @@ try {
     $pdo = new PDO("sqlite:$databasePath");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    // Initialize the database with a simple table to ensure it's valid
-    $pdo->exec('CREATE TABLE IF NOT EXISTS test_table (id INTEGER PRIMARY KEY)');
-    $pdo->exec('DROP TABLE test_table');
-    
-    // Test the connection
+    // Test basic database operations
     $pdo->query('SELECT 1');
+    echo "Basic database connection test passed\n";
+    
+    // Test creating and querying a table
+    $pdo->exec('CREATE TABLE IF NOT EXISTS test_table (id INTEGER PRIMARY KEY, name TEXT)');
+    $pdo->exec('INSERT INTO test_table (name) VALUES ("test")');
+    $result = $pdo->query('SELECT * FROM test_table')->fetch();
+    echo "Table creation and query test passed\n";
+    
+    // Clean up test table
+    $pdo->exec('DROP TABLE test_table');
     
     echo "SQLite database initialized successfully at: $databasePath\n";
     echo "Database file size: " . filesize($databasePath) . " bytes\n";
