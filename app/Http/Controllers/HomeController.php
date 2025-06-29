@@ -14,17 +14,29 @@ use App\Models\Book;
 use App\Models\Review;
 use App\Models\Table;
 use App\Models\Invoice;
+use Exception;
 
 class HomeController extends Controller
 {
 
     public function my_home()
     {
-        $data = Food::all();
-        $reviews = Review::with(['food', 'user'])->orderBy('date', 'desc')->take(3)->get();
-        $tables = Table::all();
-        
-        return view('home.index', compact('data', 'reviews', 'tables'));
+        try {
+            $data = Food::all();
+            $reviews = Review::with(['food', 'user'])->orderBy('date', 'desc')->take(3)->get();
+            $tables = Table::all();
+            
+            return view('home.index', compact('data', 'reviews', 'tables'));
+        } catch (Exception $e) {
+            \Log::error('Error in my_home method: ' . $e->getMessage());
+            \Log::error('Stack trace: ' . $e->getTraceAsString());
+            
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error loading home page: ' . $e->getMessage(),
+                'timestamp' => now()
+            ], 500);
+        }
     }
 
     // Home page logic for each user type

@@ -17,6 +17,45 @@ Route::get('/test', function () {
     ]);
 });
 
+// Test route that mimics main route without database
+Route::get('/test-home', function () {
+    try {
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Home route test - no database queries',
+            'timestamp' => now()
+        ]);
+    } catch (Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'timestamp' => now()
+        ], 500);
+    }
+});
+
+// Test route with database queries
+Route::get('/test-db', function () {
+    try {
+        $foodCount = \App\Models\Food::count();
+        $tableCount = \App\Models\Table::count();
+        
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Database queries working',
+            'food_count' => $foodCount,
+            'table_count' => $tableCount,
+            'timestamp' => now()
+        ]);
+    } catch (Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'timestamp' => now()
+        ], 500);
+    }
+});
+
 Route::get('/review', [ReviewController::class, 'showReviewForm'])->name('review.form');
 Route::post('/review', [ReviewController::class, 'submitReview'])->name('submit.review');
 
